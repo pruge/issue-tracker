@@ -104,42 +104,43 @@ export class APIClient {
   // Create headers
   private createHeaders<U extends APIResponse>(request: APIRequest<U>): any {
     const headers: Record<string, string> = {}
-    const csrfToken = this.getCsrfToken()
-    const authToken = localStorage.getItem(AUTH_TOKEN_KEY!)
+    // const csrfToken = this.getCsrfToken()
+    // const authToken = localStorage.getItem(AUTH_TOKEN_KEY!)
 
-    // CSRF 토큰 삽입
-    if (csrfToken && request.method !== HTTPMethod.GET) {
-      headers['X-CSRFToken'] = csrfToken
-    }
+    // // CSRF 토큰 삽입
+    // if (csrfToken && request.method !== HTTPMethod.GET) {
+    //   headers['X-CSRFToken'] = csrfToken
+    // }
 
-    // 인증 토큰 삽입
-    if (authToken) {
-      headers['Authorization'] = `Bearer ${authToken}`
-    }
+    // // 인증 토큰 삽입
+    // if (authToken) {
+    //   headers['Authorization'] = `Bearer ${authToken}`
+    // }
 
-    // json body 사용
-    if (
-      request.method === HTTPMethod.POST ||
-      request.method === HTTPMethod.PUT
-    ) {
-      headers['Content-Type'] = 'application/json'
-    }
+    // // json body 사용
+    // if (
+    //   request.method === HTTPMethod.POST ||
+    //   request.method === HTTPMethod.PUT
+    // ) {
+    //   headers['Content-Type'] = 'application/json'
+    // }
 
-    // 기타 헤더 삽입
-    if (request.headers) {
-      Object.assign(headers, request.headers)
-    }
+    // // 기타 헤더 삽입
+    // if (request.headers) {
+    //   Object.assign(headers, request.headers)
+    // }
 
     return headers
   }
 
   private getCsrfToken() {
-    const csrfTokenEntry = document.cookie
-      .split(' ')
-      .map((e) => e.split('='))
-      .find(([key]) => key === 'csrftoken')
+    return ''
+    // const csrfTokenEntry = document.cookie
+    //   .split(' ')
+    //   .map((e) => e.split('='))
+    //   .find(([key]) => key === 'csrftoken')
 
-    const csrfToken = csrfTokenEntry ? csrfTokenEntry[1] : null
-    return csrfToken
+    // const csrfToken = csrfTokenEntry ? csrfTokenEntry[1] : null
+    // return csrfToken
   }
 }

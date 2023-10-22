@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server'
 
 import prisma from '@/prisma/client'
-import {createIssueSchema} from '@/app/validationSchemas'
+import {createIssueSchema} from '@/app/repository/issues/validation'
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
@@ -19,4 +19,10 @@ export async function POST(request: NextRequest) {
   })
 
   return NextResponse.json(newIssue, {status: 201})
+}
+
+export async function GET(request: NextRequest) {
+  const issues = await prisma.issue.findMany({take: 10})
+
+  return NextResponse.json(issues, {status: 200})
 }

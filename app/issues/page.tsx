@@ -1,13 +1,24 @@
 import React from 'react'
-import {Button} from '@radix-ui/themes'
+import {Badge, Button, Table} from '@radix-ui/themes'
 import Link from 'next/link'
+import * as repository from '@/app/repository'
+import IssueList from '@/app/components/issues/IssueList'
 
-const IssuesPage = () => {
+const IssuesPage = async () => {
+  const issues = await repository.issues.getIssues()
+
   return (
     <div>
-      <Button>
-        <Link href="/issues/new">New Issue</Link>
-      </Button>
+      <div className="mb-3 flex">
+        <div className="ml-auto">
+          <Button>
+            <Link href="/issues/new">New Issue</Link>
+          </Button>
+        </div>
+      </div>
+      <div>
+        <IssueList data={issues} />
+      </div>
     </div>
   )
 }
