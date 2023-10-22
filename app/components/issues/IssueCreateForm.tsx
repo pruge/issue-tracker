@@ -5,12 +5,12 @@ import {useState} from 'react'
 import ErrorMessage from '../ErrorMessage'
 import {Controller, useForm} from 'react-hook-form'
 import SimpleMDE from 'react-simplemde-editor'
-import {IssueForm} from '@/app/repository/issues/entity'
+import {IssueForm} from '@/app/api/issues/entity'
 import Spinner from '../Spinner'
-import * as repository from '@/app/repository'
+import * as api from '@/app/api'
 import {useRouter} from 'next/navigation'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {createIssueSchema} from '@/app/repository/issues/validation'
+import {createIssueSchema} from '@/app/api/issues/validation'
 
 const IssueCreateForm = () => {
   const router = useRouter()
@@ -29,7 +29,7 @@ const IssueCreateForm = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true)
-      await repository.issues.createIssue(data)
+      await api.issues.createIssue(data)
       router.push('/issues')
     } catch (error) {
       setError('An unexpected error occurred.')

@@ -1,6 +1,6 @@
 import {Badge, Table} from '@radix-ui/themes'
 import React from 'react'
-import * as E from '@/app/repository/issues/entity'
+import * as E from '@/app/api/issues/entity'
 
 interface IssueListParams {
   data: E.GetIssuesResponse

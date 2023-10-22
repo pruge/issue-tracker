@@ -101,38 +101,48 @@ export class APIClient {
       response: error.response,
     }
   }
-  // Create headers
+  /**
+   * header 만들기.
+   * TODO: server 와 client에서 authToken을 다르게 얻기 하기.
+   * ! server에서 authToken이 필요없다. server에서 자체 db 접근함으로.
+   * ! client에서는 auth 를 체크해야 한다.
+   */
   private createHeaders<U extends APIResponse>(request: APIRequest<U>): any {
     const headers: Record<string, string> = {}
-    // const csrfToken = this.getCsrfToken()
+    const csrfToken = this.getCsrfToken()
     // const authToken = localStorage.getItem(AUTH_TOKEN_KEY!)
+    const authToken = ''
 
-    // // CSRF 토큰 삽입
-    // if (csrfToken && request.method !== HTTPMethod.GET) {
-    //   headers['X-CSRFToken'] = csrfToken
-    // }
+    // CSRF 토큰 삽입
+    if (csrfToken && request.method !== HTTPMethod.GET) {
+      headers['X-CSRFToken'] = csrfToken
+    }
 
-    // // 인증 토큰 삽입
-    // if (authToken) {
-    //   headers['Authorization'] = `Bearer ${authToken}`
-    // }
+    // 인증 토큰 삽입
+    if (authToken) {
+      headers['Authorization'] = `Bearer ${authToken}`
+    }
 
-    // // json body 사용
-    // if (
-    //   request.method === HTTPMethod.POST ||
-    //   request.method === HTTPMethod.PUT
-    // ) {
-    //   headers['Content-Type'] = 'application/json'
-    // }
+    // json body 사용
+    if (
+      request.method === HTTPMethod.POST ||
+      request.method === HTTPMethod.PUT
+    ) {
+      headers['Content-Type'] = 'application/json'
+    }
 
-    // // 기타 헤더 삽입
-    // if (request.headers) {
-    //   Object.assign(headers, request.headers)
-    // }
+    // 기타 헤더 삽입
+    if (request.headers) {
+      Object.assign(headers, request.headers)
+    }
 
     return headers
   }
 
+  /**
+   * cookie에서 csrfToken 가져오기.
+   * TODO: server or client에서 cookie 접근 방식을 달리하여 수정/테스트
+   */
   private getCsrfToken() {
     return ''
     // const csrfTokenEntry = document.cookie

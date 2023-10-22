@@ -1,11 +1,11 @@
 import React from 'react'
 import {Badge, Button, Table} from '@radix-ui/themes'
 import Link from 'next/link'
-import * as repository from '@/app/repository'
+import * as api from '@/app/api'
 import IssueList from '@/app/components/issues/IssueList'
 
 const IssuesPage = async () => {
-  const issues = await repository.issues.getIssues()
+  const issues = await api.issues.getIssues()
 
   return (
     <div>

@@ -1,8 +1,11 @@
 import {NextRequest, NextResponse} from 'next/server'
 
 import prisma from '@/prisma/client'
-import {createIssueSchema} from '@/app/repository/issues/validation'
+import {createIssueSchema} from '@/app/api/issues/validation'
 
+/**
+ * create issue
+ */
 export async function POST(request: NextRequest) {
   const body = await request.json()
   const validation = createIssueSchema.safeParse(body)
@@ -21,6 +24,11 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(newIssue, {status: 201})
 }
 
+/**
+ * get issues
+ *
+ * TODO: pagination 추가하기.
+ */
 export async function GET(request: NextRequest) {
   const issues = await prisma.issue.findMany({take: 10})
 
