@@ -7,16 +7,12 @@ import 'easymde/dist/easymde.min.css'
 import axios from 'axios'
 import {useRouter} from 'next/navigation'
 import {zodResolver} from '@hookform/resolvers/zod'
-import {createIssueSchema} from '@/app/validationSchemas'
 import {z} from 'zod'
 import ErrorMessage from '@/app/components/ErrorMessage'
 import Spinner from '@/app/components/Spinner'
-
-type IssueForm = z.infer<typeof createIssueSchema>
-// interface IssueForm {
-//   title: string
-//   description: string
-// }
+import * as repository from '@/app/repository'
+import {IssueForm} from '@/app/repository/issues/entity'
+import {createIssueSchema} from '@/app/repository/issues/validation'
 
 const NewIssuePage = () => {
   const router = useRouter()
@@ -34,8 +30,7 @@ const NewIssuePage = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setSubmitting(true)
-      await axios.post('/api/issues', data)
-      setSubmitting(false)
+      await repository.issues.createIssue(data)
       router.push('/issues')
     } catch (error) {
       setError('An unexpected error occurred.')
