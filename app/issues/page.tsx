@@ -1,11 +1,25 @@
-import React from 'react'
-import {Badge, Button, Table} from '@radix-ui/themes'
+import {Button} from '@radix-ui/themes'
 import Link from 'next/link'
 import * as api from '@/app/api'
 import IssueList from '@/app/components/issues/IssueList'
+import Pagination from '@/app/components/pagination/Pagination'
 
-const IssuesPage = async () => {
-  const issues = await api.issues.getIssues()
+// issue list page size
+const PAGE_SIZE = 2
+
+/**
+ * server component get searchParams
+ * https://nextjs.org/docs/app/api-reference/file-conventions/page
+ */
+const IssuesPage = async ({
+  searchParams,
+}: {
+  searchParams: {[key: string]: string | undefined}
+}) => {
+  const page = parseInt(searchParams?.page || '1')
+  const skip = (page - 1) * PAGE_SIZE
+
+  const issues = await api.issues.getIssues({skip, take: PAGE_SIZE})
 
   return (
     <div>
@@ -16,9 +30,15 @@ const IssuesPage = async () => {
           </Button>
         </div>
       </div>
-      <div>
-        <IssueList data={issues} />
-      </div>
+      <IssueList data={issues.data} />
+      <Pagination
+        type="type3"
+        total={issues.total}
+        showFirstButton
+        showLastButton
+        pageSize={PAGE_SIZE}
+        current={page}
+      />
     </div>
   )
 }

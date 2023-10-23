@@ -1,5 +1,6 @@
 import {HTTPMethod} from '../apiClient'
 import {APIRequest} from '../interfaces/apiRequest'
+import {PaginationParams} from '../interfaces/paginationParams'
 import * as E from './entity'
 
 const endpoint = '/api/issues'
@@ -11,7 +12,7 @@ export class CreateIssue<R extends E.CreateIssueResponse>
   response!: R
   auth = false
   path = `${endpoint}`
-  constructor(public data: E.IssueForm) {}
+  constructor(data: E.IssueForm) {}
 }
 
 export class GetIssues<R extends E.GetIssuesResponse> implements APIRequest<R> {
@@ -19,4 +20,8 @@ export class GetIssues<R extends E.GetIssuesResponse> implements APIRequest<R> {
   response!: R
   auth = false
   path = `${endpoint}`
+  params: PaginationParams
+  constructor(params: PaginationParams) {
+    this.params = params
+  }
 }

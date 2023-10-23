@@ -1,4 +1,4 @@
 export type PaginationParams = {
-  page: number
+  skip: number
   take?: number
 }

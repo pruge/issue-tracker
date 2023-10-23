@@ -3,7 +3,7 @@ import React from 'react'
 import * as E from '@/app/api/issues/entity'
 
 interface IssueListParams {
-  data: E.GetIssuesResponse
+  data: E.Issue[]
 }
 
 const IssueList = ({data}: IssueListParams) => {
@@ -21,7 +21,7 @@ const IssueList = ({data}: IssueListParams) => {
 
       <Table.Body>
         {data?.map((issue) => (
-          <>
+          <React.Fragment key={issue.title}>
             <Table.Row>
               <Table.Cell>{issue.title}</Table.Cell>
               <Table.Cell>
@@ -31,7 +31,7 @@ const IssueList = ({data}: IssueListParams) => {
                 {new Date(issue.createdAt).toLocaleDateString()}
               </Table.Cell>
             </Table.Row>
-          </>
+          </React.Fragment>
         ))}
       </Table.Body>
     </Table.Root>

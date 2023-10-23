@@ -16,7 +16,10 @@ export type Issue = {
   updatedAt?: Date
 }
 
-export type GetIssuesResponse = Issue[]
+export interface GetIssuesResponse {
+  total: number
+  data: Issue[]
+}
 export type CreateIssueResponse = Issue
 
 // export type IssueForm = z.infer<typeof createIssueSchema>
