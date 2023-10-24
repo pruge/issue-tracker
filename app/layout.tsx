@@ -1,6 +1,6 @@
-import '@radix-ui/themes/styles.css'
-import './theme-config.css'
+// import '@radix-ui/themes/styles.css'
 import './globals.css'
+import './theme-config.css'
 import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import {Theme, ThemePanel} from '@radix-ui/themes'
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" /* suppressHydrationWarning */>
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.variable}>
         <Theme appearance="light">
           <NavBar />

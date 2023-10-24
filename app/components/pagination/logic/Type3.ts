@@ -156,7 +156,12 @@ export class PageType3 extends PaginationType {
             type: item,
             page: buttonPage(item),
             selected: false,
-            disabled: disabled || item.indexOf('ellipsis') === -1,
+            disabled:
+              disabled ||
+              (item.indexOf('ellipsis') === -1 &&
+                (item === 'next' || item === 'last'
+                  ? current >= totalPage
+                  : current <= 1)),
             'aria-selected': false,
           }
     })

@@ -7,11 +7,11 @@ const Pagination = (option: Partial<PaginationOption>) => {
   const list = pagination.generate(option)
 
   return (
-    <>
+    <div className="flex justify-center space-x-1 py-3">
       {list.map((item, i) => (
         <PaginationButton key={item.page} data={item} />
       ))}
-    </>
+    </div>
   )
 }
 

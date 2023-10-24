@@ -45,6 +45,7 @@ export class APIClient {
   timeout: number = 20 * 1000
 
   request<U extends APIResponse>(request: APIRequest<U>): Promise<U> {
+    console.log('request', request)
     return new Promise<U>((resolve, reject) => {
       axios
         .request({
@@ -154,3 +155,7 @@ export class APIClient {
     // return csrfToken
   }
 }
+
+export const api = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+})
